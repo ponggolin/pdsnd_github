@@ -23,8 +23,8 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    print('Hello! Let\'s explore some US bikeshare data!')
-    
+    print('Hello! Let\'s explore these bike station data!')
+
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     while True:
         city = input("Select a city from {}, {} or {}:\n".format(*CITY_DATA.keys())).strip().lower()
@@ -32,7 +32,7 @@ def get_filters():
             break
         else:
             print("You enter the wrong input!\nPlease enter 'chicago' or 'new york city' or 'washington'.")
-            
+
     # get user input for month (all, january, february, ... , june)
     while True:
         month = input("Which month do you want to filter?\nPlease enter a month between January and June, or 'all' for no filter.\n").lower()
@@ -40,7 +40,7 @@ def get_filters():
             break
         else:
             print("You enter the wrong input!\nPlease enter a month between January and June, or 'all' for no filter.\n")
-    
+
     # get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
         day = input("Which day do you want to filter?\nPlease enter a day between Monday and Sunday, or 'all' for no filter.\n").lower()
@@ -66,28 +66,28 @@ def load_data(city, month, day):
     """
     # load data file into a dataframe
     df = pd.read_csv(CITY_DATA[city])
-    
+
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    
+
     # extract month and day of week an hour from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
     df['hour'] = df['Start Time'].dt.hour
-    
+
     # filter by month if applicable
-    if month != 'all':      
+    if month != 'all':
         # use the index of the months list to get the corresponding int
         month = months.index(month) + 1
-        
+
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
-        
+
     # filter by day of week if applicable
     if day != 'all':
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week'] == day.title()]
-                    
+
     return df
 
 
@@ -96,7 +96,7 @@ def time_stats(df):
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
-    
+
     # display the most common month
     most_common_month = df['month'].mode()[0]
     print('The most common month is: ', most_common_month)
@@ -169,18 +169,18 @@ def user_stats(df):
     # Display counts of gender
     if 'Gender' in df.columns:
         counts_of_gender = df['Gender'].value_counts()
-        print('\n', counts_of_gender)    
+        print('\n', counts_of_gender)
 
     # Display earliest, most recent, and most common year of birth
     if 'Birth Year' in df.columns:
         earliest_year_of_birth = df['Birth Year'].min()
         most_recent_year_of_birth = df['Birth Year'].max()
         most_common_year_of_birth = df['Birth Year'].mode()[0]
-        
+
         print('\nThe earliest year of birth: ', int(earliest_year_of_birth))
         print('The most recent year of birth: ', int(most_recent_year_of_birth))
         print('The most common year of birth: ', int(most_common_year_of_birth))
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -189,8 +189,8 @@ def raw_data(df):
     # Ask for user input, and display 5 rows of data each time if 'yes'
     user_input = input("Do you want to see raw data? Please enter 'yes' or 'no'.\n")
     number_of_data = 0
-    
-    while True:    
+
+    while True:
         if user_input.lower() == 'yes':
             print(df.iloc[number_of_data : number_of_data + 5])
             number_of_data += 5
@@ -216,4 +216,4 @@ def main():
 
 
 if __name__ == "__main__":
-	main()    
+	main()
