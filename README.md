@@ -18,4 +18,5 @@ The project is for analyzing the data of these three bike stations:
 * bikeshare.py
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
+* iloc(): https://blog.csdn.net/w_weiying/article/details/81411257
+* time.time(): http://www.runoob.com/python/att-time-time.html
